@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class EventService(private val eventRepository: EventRepository,
-    private val userRepository: UserRepository)
+    private val userRepository: UserRepository,private val qrCodeService: QRCodeService)
 {
 
     fun createEvent(event: Event):Event{
@@ -32,5 +32,7 @@ class EventService(private val eventRepository: EventRepository,
         user.registeredEvents.add(event)
 
         eventRepository.save(event)
+        val qrCodeImage = qrCodeService.generateQRCode(userId, eventId)
+        qrCodeService.saveQRCodeImage(userId, eventId, qrCodeImage)
     }
 }

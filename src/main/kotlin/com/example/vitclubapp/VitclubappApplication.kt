@@ -11,3 +11,4 @@ class VitclubappApplication
 fun main(args: Array<String>) {
 	runApplication<VitclubappApplication>(*args)
 }
+
