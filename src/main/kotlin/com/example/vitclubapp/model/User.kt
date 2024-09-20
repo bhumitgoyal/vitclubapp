@@ -18,7 +18,7 @@ data class User(
     val phoneNumber:String,
     val role:String,
 
-    @ManyToMany(mappedBy = "registeredEvents", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "registeredUsers", fetch = FetchType.LAZY)
     @JsonIgnore
     var registeredEvents: MutableSet<Event> = mutableSetOf()
 ){
