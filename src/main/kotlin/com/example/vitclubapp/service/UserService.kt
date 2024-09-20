@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(private val userRepository: UserRepository) {
 
-    fun registerUser(user: User){
-        userRepository.save(user)
+    fun registerUser(user: User):User{
+      return  userRepository.save(user)
     }
 
     fun getUserById(id:Long):User?{

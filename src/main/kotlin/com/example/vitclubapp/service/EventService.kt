@@ -11,8 +11,8 @@ class EventService(private val eventRepository: EventRepository,
     private val userRepository: UserRepository)
 {
 
-    fun createEvent(event: Event){
-        eventRepository.save(event)
+    fun createEvent(event: Event):Event{
+       return eventRepository.save(event)
 
     }
 
