@@ -38,5 +38,9 @@ class EventController(private val eventService: EventService) {
         return eventService.createEvent(event)
 
     }
+    @PostMapping("/{eventId}/finish")
+    fun finishEvent(@PathVariable eventId: Long) {
+        eventService.finishEvent(eventId)
+    }
 
 }

@@ -12,7 +12,7 @@ data class Event(
 
     val name: String,
 
-    val clubName: String,  // Optional if you want to keep the club's name
+    val clubName: String?,  // Optional if you want to keep the club's name (nullable)
 
     val organizerClub: String,
 
@@ -23,7 +23,7 @@ data class Event(
     val endTime: LocalDateTime,
 
     @ManyToOne
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "club_id", nullable = false) // Ensure club is mandatory
     var club: Club, // Correct relationship mapping
 
     @ManyToMany
