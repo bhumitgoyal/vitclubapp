@@ -42,6 +42,7 @@ class EventService(
         return eventRepository.save(event)
     }
 
+
     fun createEvent(event: Event): Event {
         if (event.maxAttendees < 0) {
             throw RuntimeException("Max attendees must be a non-negative number.")
@@ -71,6 +72,18 @@ class EventService(
         val qrCodeImage = qrCodeService.generateQRCode(userId, eventId)
         qrCodeService.saveQRCodeImage(userId, eventId, qrCodeImage)
     }
+    fun unregisterFromEvent(eventId: Long, userId: UUID) {
+        val event = eventRepository.findById(eventId).orElseThrow { RuntimeException("Event not found") }
+        val user = userRepository.findById(userId).orElseThrow { RuntimeException("User not found") }
+
+        if (!event.registeredUsers.contains(user)) {
+            throw RuntimeException("User is not registered for this event.")
+        }
+
+        event.registeredUsers.remove(user)
+        eventRepository.save(event)
+    }
+
 
     fun finishEvent(eventId: Long) {
         val event = eventRepository.findById(eventId)
