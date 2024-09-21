@@ -8,20 +8,22 @@ import com.example.vitclubapp.repository.UserRepository
 import org.springframework.stereotype.Service
 import java.util.UUID
 
-
 @Service
 class UserService(private val userRepository: UserRepository) {
-    fun login(loginRequest: LoginRequest): String {
+    fun login(loginRequest: LoginRequest): Pair<User, String> {
         val user = userRepository.findByEmail(loginRequest.email)
             ?: throw RuntimeException("User not found")
 
-        // Assuming you have a method to validate the password
+        // Validate the password
         if (!validatePassword(loginRequest.password, user.password)) {
             throw RuntimeException("Invalid password")
         }
 
-        // Generate and return a token
-        return generateToken(user)
+        // Generate a token
+        val token = generateToken(user)
+
+        // Return both the user and the token
+        return Pair(user, token)
     }
 
     // Placeholder for actual password validation
@@ -35,11 +37,10 @@ class UserService(private val userRepository: UserRepository) {
         // Implement JWT or token generation logic here
         return "generatedToken"
     }
+
     fun deleteUser(id: UUID) {
         userRepository.deleteById(id)
     }
-
-
 
     fun registerUser(user: User): User {
         return userRepository.save(user)

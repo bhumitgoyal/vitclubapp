@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
+
 import java.util.UUID
 
 @RestController

@@ -22,7 +22,7 @@ data class User (
     @Enumerated(EnumType.STRING)
     val role: UserRole,
 
-    val password: String,  // Add this line for the password
+    val password: String,
 
     @ManyToMany(mappedBy = "registeredUsers", fetch = FetchType.LAZY)
     @JsonIgnore
