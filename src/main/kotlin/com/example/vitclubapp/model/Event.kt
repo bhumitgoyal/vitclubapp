@@ -2,7 +2,6 @@ package com.example.vitclubapp.model
 
 import jakarta.persistence.*
 import java.time.LocalDateTime
-import java.util.*
 
 @Entity
 data class Event(
@@ -12,7 +11,7 @@ data class Event(
 
     val name: String,
 
-    val clubName: String?,  // Optional if you want to keep the club's name (nullable)
+    val clubName: String?,
 
     val organizerClub: String,
 
@@ -23,8 +22,8 @@ data class Event(
     val endTime: LocalDateTime,
 
     @ManyToOne
-    @JoinColumn(name = "club_id", nullable = false) // Ensure club is mandatory
-    var club: Club, // Correct relationship mapping
+    @JoinColumn(name = "club_id", nullable = false)
+    var club: Club,
 
     @ManyToMany
     @JoinTable(
@@ -37,10 +36,10 @@ data class Event(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Event) return false
-        return id == other.id // Using `==` for equality check
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(id)
+        return id.hashCode()
     }
 }

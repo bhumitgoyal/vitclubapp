@@ -2,7 +2,6 @@ package com.example.vitclubapp.model
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 data class Club(
@@ -29,16 +28,16 @@ data class Club(
     var events: MutableSet<Event> = mutableSetOf(),
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")  // Assuming each club has one admin
-    var admin: User // Proper relationship mapping
+    @JoinColumn(name = "admin_id", nullable = false)
+    var admin: User
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Club) return false
-        return id == other.id // Using `==` for equality check
+        return id == other.id
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(id)
+        return id.hashCode()
     }
 }

@@ -19,7 +19,8 @@ data class User(
 
     val phoneNumber: String,
 
-    val role: String, // Could be an enum if you want more structure
+    @Enumerated(EnumType.STRING)
+    val role: UserRole,
 
     @ManyToMany(mappedBy = "registeredUsers", fetch = FetchType.LAZY)
     @JsonIgnore
