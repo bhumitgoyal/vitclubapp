@@ -17,9 +17,9 @@ data class Event(
 
     var location: String,
 
-    var startTime: LocalDateTime,
+    var startTime: String,
 
-    var endTime: LocalDateTime,
+    var endTime: String,
 
     @ManyToOne
     @JoinColumn(name = "club_id", nullable = false)

@@ -45,8 +45,8 @@ class DataInitializer(
             clubName = club.name, // Using the club's name
             organizerClub = "PLA", // Organizer club name
             location = "Room 101",
-            startTime = LocalDateTime.now().plusHours(1),
-            endTime = LocalDateTime.now().plusHours(2),
+            startTime = (LocalDateTime.now().plusHours(1)).toString(),
+            endTime = (LocalDateTime.now().plusHours(2)).toString(),
             club = club // Associating the event with the club
         )
         eventRepository.save(event)
