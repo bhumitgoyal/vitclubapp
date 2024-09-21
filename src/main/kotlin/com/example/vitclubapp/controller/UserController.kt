@@ -2,6 +2,7 @@ package com.example.vitclubapp.controller
 
 import com.example.vitclubapp.model.Event
 import com.example.vitclubapp.model.LoginRequest
+import com.example.vitclubapp.model.LoginResponse
 import com.example.vitclubapp.model.User
 import com.example.vitclubapp.service.UserService
 import org.springframework.http.ResponseEntity
@@ -28,10 +29,16 @@ class UserController(private val userService: UserService) {
         userService.deleteUser(id)
         return ResponseEntity.ok("User deleted successfully")
     }
+
+
     @PostMapping("/login")
-    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<String> {
-        val token = userService.login(loginRequest)
-        return ResponseEntity.ok(token)
+    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<LoginResponse> {
+        // Fetch the user and the token
+        val (user, token) = userService.login(loginRequest)
+
+        // Create and return the login response
+        val loginResponse = LoginResponse(token, user.id, user.role.toString())
+        return ResponseEntity.ok(loginResponse)
     }
 
 

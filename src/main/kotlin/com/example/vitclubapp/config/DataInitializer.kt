@@ -25,7 +25,7 @@ class DataInitializer(
             registrationNumber = "123456",
             email = "john@example.com",
             phoneNumber = "1234567890",
-            password = "securePassword", // Add a password here
+            password = "secure", // Add a password here
             role = UserRole.ADMIN // Using the enum for the user role
         )
         userRepository.save(adminUser)
@@ -45,8 +45,8 @@ class DataInitializer(
             clubName = club.name, // Using the club's name
             organizerClub = "PLA", // Organizer club name
             location = "Room 101",
-            startTime = LocalDateTime.now().plusHours(1),
-            endTime = LocalDateTime.now().plusHours(2),
+            startTime = "hey",
+            endTime = "hey",
             club = club // Associating the event with the club
         )
         eventRepository.save(event)

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class UserService(private val userRepository: UserRepository) {
-    fun login(loginRequest: LoginRequest): String {
+    fun login(loginRequest: LoginRequest):  Pair<User, String> {
         val user = userRepository.findByEmail(loginRequest.email)
             ?: throw RuntimeException("User not found")
 
@@ -17,9 +17,11 @@ class UserService(private val userRepository: UserRepository) {
         if (!validatePassword(loginRequest.password, user.password)) {
             throw RuntimeException("Invalid password")
         }
+        // Generate a token
+        val token = generateToken(user)
 
-        // Generate and return a token
-        return generateToken(user)
+        // Return both the user and the token
+        return Pair(user, token)
     }
 
     // Placeholder for actual password validation
