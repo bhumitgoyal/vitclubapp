@@ -20,6 +20,8 @@ import java.io.FileOutputStream
 import java.time.LocalDateTime
 import javax.imageio.ImageIO
 import java.util.UUID
+import java.time.format.DateTimeFormatter
+
 
 
 @Service
@@ -54,7 +56,8 @@ class QRCodeService(
 
             val row = sheet.createRow(sheet.physicalNumberOfRows)
             row.createCell(0).setCellValue(user.registrationNumber)
-            row.createCell(1).setCellValue(LocalDateTime.now().toString())
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            row.createCell(1).setCellValue(LocalDateTime.now().format(formatter))
 
             // Write workbook to the file
             FileOutputStream(file).use { outputStream ->
