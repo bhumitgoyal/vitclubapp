@@ -6,7 +6,7 @@ import com.example.vitclubapp.model.User
 import com.example.vitclubapp.service.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
+import java.util.UUID
 
 @RestController
 @RequestMapping("/users")
@@ -24,7 +24,7 @@ class UserController(private val userService: UserService) {
     }
 
     @DeleteMapping("/{id}")
-    fun deleteUser(@PathVariable id: Long): ResponseEntity<String> {
+    fun deleteUser(@PathVariable id: UUID): ResponseEntity<String> {
         userService.deleteUser(id)
         return ResponseEntity.ok("User deleted successfully")
     }
@@ -37,13 +37,13 @@ class UserController(private val userService: UserService) {
 
 
     @GetMapping("/{id}")
-    fun getUserById(@PathVariable id:Long):ResponseEntity<User>{
+    fun getUserById(@PathVariable id: UUID):ResponseEntity<User>{
         val user = userService.getUserById(id)
         return if (user!=null) ResponseEntity.ok(user) else ResponseEntity.notFound().build()
     }
 
     @GetMapping("/{id}/events")
-    fun getUserRegisteredEvents(@PathVariable id:Long):ResponseEntity<Set<Event>>{
+    fun getUserRegisteredEvents(@PathVariable id:UUID):ResponseEntity<Set<Event>>{
         val events = userService.getUserRegisteredEvents(id)
         return ResponseEntity.ok(events)
     }

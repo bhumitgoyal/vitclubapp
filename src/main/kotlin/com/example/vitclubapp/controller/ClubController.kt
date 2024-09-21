@@ -4,6 +4,7 @@ import com.example.vitclubapp.model.Club
 import com.example.vitclubapp.service.ClubService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/clubs")
@@ -25,7 +26,7 @@ class ClubController (private val clubService: ClubService){
 
 
     @PostMapping("/{clubId}/register")
-    fun addMember(@PathVariable clubId:Long, @RequestParam userId:Long):ResponseEntity<String>{
+    fun addMember(@PathVariable clubId:Long, @RequestParam userId: UUID):ResponseEntity<String>{
         return try{
             clubService.addMember(userId,clubId)
             ResponseEntity.ok("Registered for club successfully")

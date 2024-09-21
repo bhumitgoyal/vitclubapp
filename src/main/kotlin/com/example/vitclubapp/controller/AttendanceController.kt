@@ -8,6 +8,7 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.io.File
+import java.util.UUID
 
 @RestController
 @RequestMapping("/attendance")
@@ -37,7 +38,7 @@ class AttendanceController(private val qrCodeService: QRCodeService) {
 
     @PostMapping("/add")
     fun addAttendance(
-        @RequestParam userId: Long,
+        @RequestParam userId: UUID,
         @RequestParam eventId: Long
     ): String {
         return try {

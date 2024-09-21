@@ -11,6 +11,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.format.DateTimeFormatter
+import java.util.UUID
+
 
 @Service
 class EventService(
@@ -48,7 +50,7 @@ class EventService(
         return eventRepository.findAll()
     }
 
-    fun registerForEvent(eventId: Long, userId: Long) {
+    fun registerForEvent(eventId: Long, userId: UUID) {
         val event = eventRepository.findById(eventId)
             .orElseThrow { RuntimeException("Event not found!") }
         val user = userRepository.findById(userId)

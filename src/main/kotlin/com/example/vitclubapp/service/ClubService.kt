@@ -1,5 +1,5 @@
 package com.example.vitclubapp.service
-
+import java.util.UUID
 import com.example.vitclubapp.exception.ResourceNotFoundException
 import com.example.vitclubapp.model.Club
 import com.example.vitclubapp.model.User
@@ -33,7 +33,7 @@ class ClubService(private val clubRepository: ClubRepository, private val userRe
         return clubRepository.findAll()
     }
 
-    fun addMember(userId: Long, clubId: Long) {
+    fun addMember(userId: UUID, clubId: Long) {
         val club = clubRepository.findById(clubId).orElseThrow { ResourceNotFoundException("Club not found") }
         val user = userRepository.findById(userId).orElseThrow { ResourceNotFoundException("User not found") }
 

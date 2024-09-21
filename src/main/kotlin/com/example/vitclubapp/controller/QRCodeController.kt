@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
+import java.util.UUID
 
 @RestController
 @RequestMapping("/qrcode")
@@ -15,9 +16,10 @@ class QRCodeController(private val qrCodeService: QRCodeService) {
     fun scanQRCode(@RequestParam qrCodeFilePath: String): ResponseEntity<String> {
         return try {
             val qrCodeContent = qrCodeService.scanQRCode(qrCodeFilePath)
-            val (userId, eventId) = qrCodeContent.split(", ").map { it.split(":")[1].trim() }
-
-            qrCodeService.addAttendanceToExcel(userId.toLong(), eventId.toLong())
+            val (userIdString, eventIdString) = qrCodeContent.split(", ").map { it.split(":")[1].trim() }
+            val userId = UUID.fromString(userIdString) // Convert String to UUID
+            val eventId = eventIdString.toLong() // Convert String to Long
+            qrCodeService.addAttendanceToExcel(userId, eventId)
             ResponseEntity.ok("User attendance recorded successfully")
         } catch (e: Exception) {
             ResponseEntity.badRequest().body("Error scanning QR code: ${e.message}")
@@ -26,7 +28,7 @@ class QRCodeController(private val qrCodeService: QRCodeService) {
 
 
     @GetMapping("/{userId}/{eventId}")
-    fun generateQRCode(@PathVariable userId: Long, @PathVariable eventId: Long): ResponseEntity<ByteArray> {
+    fun generateQRCode(@PathVariable userId: UUID, @PathVariable eventId: Long): ResponseEntity<ByteArray> {
         val image = qrCodeService.generateQRCode(userId, eventId)
 
         val byteArrayOutputStream = ByteArrayOutputStream()

@@ -3,13 +3,13 @@ package com.example.vitclubapp.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
+import java.util.UUID
 
 @Entity
 @Table(name = "app_user")
-data class User(
+data class User (
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: UUID = UUID.randomUUID(),
 
     val name: String,
 
@@ -31,14 +31,16 @@ data class User(
     @ManyToMany(mappedBy = "members", fetch = FetchType.LAZY)
     @JsonIgnore
     var clubs: MutableSet<Club> = mutableSetOf()
-) {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is User) return false
-        return id == other.id
+    )
+    {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other !is User) return false
+            return id == other.id
+        }
+
+        override fun hashCode(): Int {
+            return Objects.hash(id)
+        }
     }
 
-    override fun hashCode(): Int {
-        return Objects.hash(id)
-    }
-}

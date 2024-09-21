@@ -19,6 +19,8 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.time.LocalDateTime
 import javax.imageio.ImageIO
+import java.util.UUID
+
 
 @Service
 class QRCodeService(
@@ -26,10 +28,11 @@ class QRCodeService(
     private val userRepository: UserRepository
 ) {
 
-    fun addAttendanceToExcel(userId: Long, eventId: Long) {
+    fun addAttendanceToExcel(userId: UUID, eventId: Long) {
         val user = userRepository.findById(userId).orElseThrow { RuntimeException("User not found") }
         val event = eventRepository.findById(eventId).orElseThrow { RuntimeException("Event not found") }
 
+        event.attendanceCount += 1
         val fileName = "attendance/event_${eventId}_attendance.xlsx"
         val file = File(fileName)
 
@@ -67,7 +70,7 @@ class QRCodeService(
         }
     }
 
-    fun saveQRCodeImage(userId: Long, eventId: Long, image: BufferedImage) {
+    fun saveQRCodeImage(userId: UUID, eventId: Long, image: BufferedImage) {
         try {
             val qrCodeDir = File("qr_codes")
             if (!qrCodeDir.exists()) {
@@ -92,7 +95,7 @@ class QRCodeService(
         return result.text
     }
 
-    fun generateQRCode(userId: Long, eventId: Long): BufferedImage {
+    fun generateQRCode(userId: UUID, eventId: Long): BufferedImage {
         val event = eventRepository.findById(eventId).orElseThrow { RuntimeException("Event not found") }
 
         // Optionally, check if the event has ended or if the user is registered

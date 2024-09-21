@@ -5,7 +5,7 @@ import com.example.vitclubapp.service.EventService
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
-
+import java.util.UUID
 
 @RestController
 @RequestMapping("/events")
@@ -29,7 +29,7 @@ class EventController(private val eventService: EventService) {
 
 
     @PostMapping("/{eventId}/register")
-    fun registerForEvent(@PathVariable eventId:Long, @RequestParam userId:Long):ResponseEntity<String>{
+    fun registerForEvent(@PathVariable eventId:Long, @RequestParam userId: UUID):ResponseEntity<String>{
         return try{
             eventService.registerForEvent(eventId,userId)
             ResponseEntity.ok("Registered Successfully")

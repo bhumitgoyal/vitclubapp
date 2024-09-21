@@ -25,13 +25,15 @@ data class Event(
     @JoinColumn(name = "club_id", nullable = false)
     var club: Club,
 
+
     @ManyToMany
     @JoinTable(
         name = "event_users",
         joinColumns = [JoinColumn(name = "event_id")],
         inverseJoinColumns = [JoinColumn(name = "user_id")]
     )
-    var registeredUsers: MutableSet<User> = mutableSetOf()
+    var registeredUsers: MutableSet<User> = mutableSetOf(),
+    var attendanceCount: Int = 0,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

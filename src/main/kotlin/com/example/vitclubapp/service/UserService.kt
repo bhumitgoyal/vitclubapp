@@ -6,6 +6,8 @@ import com.example.vitclubapp.model.LoginRequest
 import com.example.vitclubapp.model.User
 import com.example.vitclubapp.repository.UserRepository
 import org.springframework.stereotype.Service
+import java.util.UUID
+
 
 @Service
 class UserService(private val userRepository: UserRepository) {
@@ -33,7 +35,7 @@ class UserService(private val userRepository: UserRepository) {
         // Implement JWT or token generation logic here
         return "generatedToken"
     }
-    fun deleteUser(id: Long) {
+    fun deleteUser(id: UUID) {
         userRepository.deleteById(id)
     }
 
@@ -43,7 +45,7 @@ class UserService(private val userRepository: UserRepository) {
         return userRepository.save(user)
     }
 
-    fun getUserById(id: Long): User {
+    fun getUserById(id: UUID): User {
         return userRepository.findById(id).orElseThrow { ResourceNotFoundException("User not found") }
     }
 
@@ -51,7 +53,7 @@ class UserService(private val userRepository: UserRepository) {
         return userRepository.findAll()
     }
 
-    fun getUserRegisteredEvents(id: Long): Set<Event> {
+    fun getUserRegisteredEvents(id: UUID): Set<Event> {
         val user = userRepository.findById(id).orElseThrow { ResourceNotFoundException("User Not Found") }
         return user.registeredEvents
     }
