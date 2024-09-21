@@ -1,0 +1,93 @@
+{
+    "id": 3,
+    "name": "Tech Club",
+    "members": [],
+    "description": "A club for tech enthusiasts",
+    "cluborchap": "Club",
+    "admin": {
+        "id": "35058129-e3d9-49f6-86ea-8711fee66db8",
+        "name": "ADMIN1",
+        "registrationNumber": "REG12345",
+        "email": "john.doe@example.com",
+        "phoneNumber": "123-456-7890",
+        "role": "ADMIN",
+        "password": "pass"
+    }
+}
+
+admin details:
+{
+    "name": "Tech Club",
+    "description": "A club for tech enthusiasts",
+    "cluborchap": "Club",
+    "admin": {
+    "id": "35058129-e3d9-49f6-86ea-8711fee66db8",
+    "name": "ADMIN1",
+    "email": "john.doe@example.com",
+    "registrationNumber": "REG12345",
+    "phoneNumber": "123-456-7890",
+    "role": "ADMIN",
+    "password": "pass"
+}
+}
+
+event creation response:
+{
+    "id": 3,
+    "name": "Tech Talk",
+    "clubName": "Tech Club",
+    "organizerClub": "Tech Enthusiasts Club",
+    "location": "Auditorium A",
+    "startTime": "2024-09-25T10:00:00",
+    "endTime": "2024-09-25T12:00:00",
+    "club": {
+        "id": 3,
+        "name": "Tech Club",
+        "members": [],
+        "description": "A club for tech enthusiasts",
+        "cluborchap": "Club",
+        "admin": {
+            "id": "35058129-e3d9-49f6-86ea-8711fee66db8",
+            "name": "ADMIN1",
+            "registrationNumber": "REG12345",
+            "email": "admin@example.com",
+            "phoneNumber": "123-456-7890",
+            "role": "ADMIN",
+            "password": "pass"
+        }
+    },
+    "registeredUsers": [],
+    "attendanceCount": 0
+}
+
+event creation prompt:
+{
+    "name": "Tech Talk",
+    "clubName": "Tech Club",
+    "organizerClub": "Tech Enthusiasts Club",
+    "location": "Auditorium A",
+    "startTime": "2024-09-25T10:00:00",
+    "endTime": "2024-09-25T12:00:00",
+    "attendanceCount": 0,
+    "club": {
+        "id": 3,
+        "name": "Tech Club",
+        "description": "A club for tech enthusiasts",
+        "cluborchap": "Club",
+        "admin": {
+            "id": "35058129-e3d9-49f6-86ea-8711fee66db8",
+            "name": "ADMIN1",
+            "email": "admin@example.com",
+            "registrationNumber": "REG12345",
+            "phoneNumber": "123-456-7890",
+            "role": "ADMIN",
+            "password": "pass"
+        }
+    }
+}
+
+student user id:
+4be66851-63e5-4829-86e9-eb43ad580b51
+
+
+

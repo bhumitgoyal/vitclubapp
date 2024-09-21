@@ -53,11 +53,24 @@ class QRCodeService(
         try {
             // Ensure the "Attendance" sheet exists
             val sheet = workbook.getSheet("Attendance") ?: workbook.createSheet("Attendance")
+            if (sheet.physicalNumberOfRows == 0) {
+                // First row: Event details (Name, Date, Club)
+                val eventDetailsRow = sheet.createRow(0)
+                eventDetailsRow.createCell(0).setCellValue("Event Name: ${event.name}")
+                eventDetailsRow.createCell(1).setCellValue("Date: ${event.startTime.split("T").first()}") // Assuming ISO-8601 date
+                eventDetailsRow.createCell(2).setCellValue("Club: ${event.club.name}")
 
+                // Second row: Column headings (Reg No, Name, Date-Time of Attendance)
+                val headerRow = sheet.createRow(1)
+                headerRow.createCell(0).setCellValue("Reg No")
+                headerRow.createCell(1).setCellValue("Name")
+                headerRow.createCell(2).setCellValue("Date-Time of Attendance")
+            }
             val row = sheet.createRow(sheet.physicalNumberOfRows)
             row.createCell(0).setCellValue(user.registrationNumber)
+            row.createCell(1).setCellValue(user.name)
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-            row.createCell(1).setCellValue(LocalDateTime.now().format(formatter))
+            row.createCell(2).setCellValue(LocalDateTime.now().format(formatter))
 
             // Write workbook to the file
             FileOutputStream(file).use { outputStream ->

@@ -47,3 +47,4 @@ class ClubController (private val clubService: ClubService){
         return clubService.createClub(club)
     }
 }
+
