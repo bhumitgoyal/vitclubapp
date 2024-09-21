@@ -22,6 +22,8 @@ data class User(
     @Enumerated(EnumType.STRING)
     val role: UserRole,
 
+    val password: String,  // Add this line for the password
+
     @ManyToMany(mappedBy = "registeredUsers", fetch = FetchType.LAZY)
     @JsonIgnore
     var registeredEvents: MutableSet<Event> = mutableSetOf(),
@@ -33,7 +35,7 @@ data class User(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
-        return id == other.id // Using `==` for equality check
+        return id == other.id
     }
 
     override fun hashCode(): Int {

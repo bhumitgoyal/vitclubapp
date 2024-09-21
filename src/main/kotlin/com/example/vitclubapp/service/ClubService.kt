@@ -10,6 +10,21 @@ import org.springframework.stereotype.Service
 @Service
 class ClubService(private val clubRepository: ClubRepository, private val userRepository: UserRepository) {
 
+
+    fun getClubById(id: Long): Club {
+        return clubRepository.findById(id).orElseThrow { ResourceNotFoundException("Club not found") }
+    }
+
+    fun updateClub(id: Long, updatedClub: Club): Club {
+        val club = getClubById(id)
+        // Update fields
+        return clubRepository.save(updatedClub)
+    }
+
+    fun deleteClub(id: Long) {
+        clubRepository.deleteById(id)
+    }
+
     fun createClub(club: Club): Club {
         return clubRepository.save(club)
     }

@@ -1,15 +1,11 @@
 package com.example.vitclubapp.controller
 
 import com.example.vitclubapp.model.Event
+import com.example.vitclubapp.model.LoginRequest
 import com.example.vitclubapp.model.User
 import com.example.vitclubapp.service.UserService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -26,6 +22,19 @@ class UserController(private val userService: UserService) {
         return ResponseEntity.ok(userService.getAllUsers())
 
     }
+
+    @DeleteMapping("/{id}")
+    fun deleteUser(@PathVariable id: Long): ResponseEntity<String> {
+        userService.deleteUser(id)
+        return ResponseEntity.ok("User deleted successfully")
+    }
+    @PostMapping("/login")
+    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<String> {
+        val token = userService.login(loginRequest)
+        return ResponseEntity.ok(token)
+    }
+
+
 
     @GetMapping("/{id}")
     fun getUserById(@PathVariable id:Long):ResponseEntity<User>{

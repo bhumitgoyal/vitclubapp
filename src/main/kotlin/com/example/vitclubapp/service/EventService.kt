@@ -1,5 +1,6 @@
 package com.example.vitclubapp.service
 
+import com.example.vitclubapp.exception.ResourceNotFoundException
 import com.example.vitclubapp.model.Event
 import com.example.vitclubapp.repository.EventRepository
 import com.example.vitclubapp.repository.UserRepository
@@ -17,6 +18,27 @@ class EventService(
     private val userRepository: UserRepository,
     private val qrCodeService: QRCodeService
 ) {
+    fun getEventById(id: Long): Event {
+        return eventRepository.findById(id).orElseThrow { ResourceNotFoundException("Event not found") }
+    }
+    fun deleteEvent(id: Long) {
+        eventRepository.deleteById(id)
+    }fun updateEvent(id: Long, updatedEvent: Event): Event {
+        // Fetch the existing event
+        val event = getEventById(id)
+
+        // Update the fields with the values from updatedEvent
+        event.name = updatedEvent.name
+        event.clubName = updatedEvent.clubName
+        event.organizerClub = updatedEvent.organizerClub
+        event.location = updatedEvent.location
+        event.startTime = updatedEvent.startTime
+        event.endTime = updatedEvent.endTime
+        // If there are other fields, update them similarly
+
+        // Save the updated event
+        return eventRepository.save(event)
+    }
 
     fun createEvent(event: Event): Event {
         return eventRepository.save(event)

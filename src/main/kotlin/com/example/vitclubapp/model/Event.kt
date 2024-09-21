@@ -9,17 +9,17 @@ data class Event(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val name: String,
+    var name: String,
 
-    val clubName: String?,
+    var clubName: String?,
 
-    val organizerClub: String,
+    var organizerClub: String,
 
-    val location: String,
+    var location: String,
 
-    val startTime: LocalDateTime,
+    var startTime: LocalDateTime,
 
-    val endTime: LocalDateTime,
+    var endTime: LocalDateTime,
 
     @ManyToOne
     @JoinColumn(name = "club_id", nullable = false)

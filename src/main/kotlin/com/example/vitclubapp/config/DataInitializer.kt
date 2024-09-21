@@ -25,6 +25,7 @@ class DataInitializer(
             registrationNumber = "123456",
             email = "john@example.com",
             phoneNumber = "1234567890",
+            password = "securePassword", // Add a password here
             role = UserRole.ADMIN // Using the enum for the user role
         )
         userRepository.save(adminUser)
