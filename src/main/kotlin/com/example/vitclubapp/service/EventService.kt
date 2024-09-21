@@ -43,6 +43,9 @@ class EventService(
     }
 
     fun createEvent(event: Event): Event {
+        if (event.maxAttendees < 0) {
+            throw RuntimeException("Max attendees must be a non-negative number.")
+        }
         return eventRepository.save(event)
     }
 

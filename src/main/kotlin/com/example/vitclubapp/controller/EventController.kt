@@ -30,9 +30,18 @@ class EventController(private val eventService: EventService) {
 
     @PostMapping("/{eventId}/register")
     fun registerForEvent(@PathVariable eventId:Long, @RequestParam userId: UUID):ResponseEntity<String>{
+        val event = eventService.getEventById(eventId)
+        if (event.registeredUsers.size >= event.maxAttendees) {
+            return ResponseEntity.badRequest().body("Sorry! Event is full.")
+        }
         return try{
             eventService.registerForEvent(eventId,userId)
-            ResponseEntity.ok("Registered Successfully")
+
+
+            val downloadLink = "http://localhost:8080/qrcode/${userId}/${eventId}"
+
+
+            ResponseEntity.ok("Registered successfully! Download your QR code here: $downloadLink")
         }
         catch (e:RuntimeException){
             ResponseEntity.badRequest().body(e.message)
