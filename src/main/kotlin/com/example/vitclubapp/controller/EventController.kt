@@ -63,4 +63,14 @@ class EventController(private val eventService: EventService) {
         eventService.finishEvent(eventId)
     }
 
+    @DeleteMapping("/{eventId}/unregister")
+    fun unregisterFromEvent(@PathVariable eventId: Long, @RequestParam userId: UUID): ResponseEntity<String> {
+        return try {
+            eventService.unregisterFromEvent(eventId, userId)
+            ResponseEntity.ok("Successfully unregistered from the event.")
+        } catch (e: RuntimeException) {
+            ResponseEntity.badRequest().body(e.message)
+        }
+    }
+
 }
