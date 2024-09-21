@@ -21,7 +21,7 @@ class DataInitializer(
     override fun run(vararg args: String?) {
         // Creating a user with the role 'ADMIN' from the UserRole enum
         val adminUser = User(
-            name = "John Doe",
+            name = "john Doe",
             registrationNumber = "123456",
             email = "john@example.com",
             phoneNumber = "1234567890",
