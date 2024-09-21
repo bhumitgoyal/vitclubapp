@@ -34,6 +34,7 @@ data class Event(
     )
     var registeredUsers: MutableSet<User> = mutableSetOf(),
     var attendanceCount: Int = 0,
+    var maxAttendees: Int = 0,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
